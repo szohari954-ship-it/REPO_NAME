@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dispossessed Project</title>
+
+<style>
+  /* ---------- Root palette ---------- */
+  :root{
+    --warm-1: #b83b2e;    /* deep red */
+    --warm-2: #e67e22;    /* orange */
+    --accent: #f9e79f;    /* pale gold */
+    --card: #fff7eb;      /* warm card bg */
+    --text-dark: #333;
+    --soft-shadow: 0 12px 30px rgba(0,0,0,.35);
+    --glass: rgba(0,0,0,.5);
+    --papel-1: #f94144;
+    --papel-2: #f3722c;
+    --papel-3: #f8961e;
+    --papel-4: #90be6d;
+    --papel-5: #577590;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, #fff5ea 0%, #ffeedd 100%);
+    color:#111;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    background: linear-gradient(90deg,var(--warm-1), #b03a2e 60%);
+    padding:22px 18px;
+    text-align:center;
+    box-shadow: var(--soft-shadow);
+    position:sticky; top:0; z-index:60;
+  }
+  header h1{
+    margin:0;
+    font-family: "sans-serif", "Arial", cursive;
+    font-size:2.6rem;
+    color:var(--accent);
+    text-shadow: 2px 3px 6px rgba(0,0,0,.45);
+    letter-spacing:0.6px;
+  }
+
+  /* ---------- Decorative papel-picado banner ---------- */
+  .papel-row{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    padding:8px 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02));
+    overflow:hidden;
+  }
+  .papel{
+    width:40px;height:22px;border-radius:4px;
+    transform:skewX(-6deg);
+    box-shadow:0 3px 6px rgba(0,0,0,.12);
+  }
+  .papel.p1{background:var(--papel-1)}
+  .papel.p2{background:var(--papel-2)}
+  .papel.p3{background:var(--papel-3)}
+  .papel.p4{background:var(--papel-4)}
+  .papel.p5{background:var(--papel-5)}
+
+  /* ---------- Nav ---------- */
+  nav{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    padding:14px;
+    background: linear-gradient(90deg,#f6b26b, #f39c12);
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    position: sticky; top:82px; z-index:55;
+  }
+  nav button{
+    background:linear-gradient(180deg,var(--accent), #f4d98b);
+    color:var(--warm-1);
+    border:0;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow: 0 8px 18px rgba(0,0,0,.12);
+    transition: transform .18s ease, box-shadow .18s;
+    font-size:1.02rem;
+  }
+  nav button:hover{
+    transform:translateY(-3px);
+    box-shadow: 0 16px 30px rgba(0,0,0,.18);
+  }
+
+  /* ---------- Sections ---------- */
+  section{
+    display:none;
+    min-height:calc(100vh - 220px);
+    padding:36px 18px;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    position:relative;
+  }
+  section.active{display:block}
+
+  /* Overlay card (centered) */
+  .overlay{
+    background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.58));
+    padding:28px;
+    border-radius:16px;
+    max-width:1100px;
+    margin:18px auto;
+    box-shadow: var(--soft-shadow);
+    color: #fff;
+    backdrop-filter: blur(2px);
+  }
+
+  /* ---------- Bigger typography for Home and global ---------- */
+  h2{
+    margin:0 0 20px 0;
+    text-align:center;
+    font-family:"Pacifico", "Brush Script MT", cursive;
+    font-size:2.2rem;
+    color:var(--accent);
+    text-shadow: 2px 3px 6px rgba(0,0,0,.45);
+  }
+  .lead{
+    font-size:1.18rem;
+    line-height:1.75;
+    color: #fff8ea;
+    margin-bottom:18px;
+  }
+
+  /* ---------- Quote layout: image left, text right ---------- */
+  .quote-row{
+    display:flex;
+    gap:28px;
+    align-items:flex-start;
+    margin-top:6px;
+  }
+  .quote-left{flex:0 0 44%;max-width:44%}
+  .quote-left img{
+    width:100%;height:auto;border-radius:14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.45);border:5px solid rgba(249,231,159,.9);
+    display:block;
+  }
+  .quote-right{flex:1;padding:6px 2px}
+  .quote-right .quote-text{
+    font-style:italic;color:#fff7e7;margin-bottom:18px;font-size:1.12rem;line-height:1.7;
+    padding-right:6px;
+  }
+
+  /* ---------- Info blocks ---------- */
+  .info-block{
+    background:var(--card);
+    border-left:8px solid #f28e1c;
+    padding:18px;margin:18px 0;border-radius:12px;
+    box-shadow:0 10px 26px rgba(0,0,0,.12);
+    color:var(--text-dark);
+    font-family:Inter,system-ui,Arial;
+    line-height:1.58;
+  }
+  .info-block h3{margin:0 0 8px;color:#c63a2d;font-size:1.05rem}
+  .info-block .subh{color:#c63a2d;margin-top:14px;font-weight:700}
+
+  /* ---------- Responsive: stack image above text on narrow screens ---------- */
+  @media (max-width:920px){
+    .quote-row{flex-direction:column}
+    .quote-left,.quote-right{max-width:100%;flex:unset}
+    header h1{font-size:1.9rem}
+    .papel{width:34px;height:18px}
+    nav{position:static}
+  }
+
+  /* ---------- Fade-in animation ---------- */
+  .fade-in{opacity:0;transform:translateY(10px);animation:fadeIn .56s forwards ease-out}
+  @keyframes fadeIn{to{opacity:1;transform:none}}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:linear-gradient(90deg,var(--warm-1), #9f2f26);
+    padding:14px;text-align:center;color:var(--accent);
+    font-family:"Pacifico",cursive;
+    box-shadow:0 -6px 16px rgba(0,0,0,.12);
+  }
+
+  /* ---------- Small accessibility tweak: focus outline ---------- */
+  nav button:focus{outline:3px solid rgba(255,255,255,.2);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Sina - Hendrick - Pricsila - Anastasia </h1>
+  <div class="papel-row" aria-hidden="true">
+    <div class="papel p1"></div>
+    <div class="papel p2"></div>
+    <div class="papel p3"></div>
+    <div class="papel p4"></div>
+    <div class="papel p5"></div>
+    <div class="papel p1"></div>
+    <div class="papel p2"></div>
+  </div>
+</header>
+
+<nav>
+  <button onclick="showTab('home')">Home</button>
+  <button onclick="showTab('quote1')">Quote 1</button>
+  <button onclick="showTab('quote2')">Quote 2</button>
+  <button onclick="showTab('quote3')">Quote 3</button>
+  <button onclick="showTab('works')">Works Cited</button>
+</nav>
+
+<!-- ========= HOME ========= -->
+<section id="home" class="active" style="background-image:url('media/e.jpg')">
+  <div class="overlay">
+    <h2>Welcome</h2>
+    <p class="lead">
+      <strong>Thesis:</strong> Through her use of Symbolism, Characterization, Allusion and Dichotomy in <em>Dispossessed</em>, Désirée Zamorano argues that the expectation of assimilation into the "White" American culture systematically erases immigrant identity by discouraging expression of heritage, language, and customs.
+    </p>
+
+    <!-- Bigger home text block (made more prominent) -->
+    <div class="info-block fade-in" style="border-left-color:#d44b35;">
+      <h3>About this project</h3>
+      <p>This multimodal site pairs literary analysis with visual pieces to explore how Zamorano portrays assimilation, erasure, and resistance. Use the tabs above to explore three selected quotes, each paired with artwork and historical context.</p>
+    </div>
+
+    <!-- Home audio (only this one plays automatically) -->
+    <audio id="audio-home" loop>
+      <source src="/Users/sina/Desktop/web/Valentin_Diaz_-_Me_xico_lindo_y_querido_(mp3.pm).mp3" type="audio/mpeg">
+      <!-- fallback text omitted -->
+    </audio>
+  </div>
+</section>
+
+<!-- ========= QUOTE 1 ========= -->
+<section id="quote1" style="background-image:url('media/f.jpg')">
+  <div class="overlay">
+    <h2>Quote 1</h2>
+
+    <div class="quote-row">
+      <div class="quote-left">
+        <img src="media/h.png" alt="No Mexis After Sunset artwork">
+      </div>
+
+      <div class="quote-right">
+        <p class="quote-text">“I told you something, boy. Get off of that goddamned swing. You Mexis shouldn't be out after sunset. Here in Rosewood, we don't want you here, we don't want you in the daylight either.” (Zamorano 71)</p>
+
+        <div class="info-block fade-in" id="q1-info">
+          <h3>Historical Context</h3>
+          <p>This quote reflects the generational divide within many Mexican-American communities and the outright racial exclusion that existed in certain neighborhoods. It echoes practices like “sundown towns” and the Mexican repatriation pressures of the 1930s, when Mexican and Mexican-American people were pushed away from White neighborhoods and public spaces. Rosewood functions as a literary stand-in for those exclusionary places.</p>
+
+          <h3 class="subh">Literary Devices</h3>
+          <p>
+             <strong>Characterization:</strong> The man’s voice represents both personal prejudice and the authority of discriminatory social norms.<br><br>
+             <strong>Dichotomy:</strong> “Daylight vs. night” signals visible citizenship vs. forced invisibility.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= QUOTE 2 ========= -->
+<section id="quote2" style="background-image:url('media/c.png')">
+  <div class="overlay">
+    <h2>Quote 2</h2>
+
+    <div class="quote-row">
+      <div class="quote-left">
+        <img src="media/g.jpg" alt="Vintage newspaper style artwork">
+      </div>
+
+      <div class="quote-right">
+        <p class="quote-text">“You tell them Lizette's French. You tell them Galvan is Spanish, from Galicia. Anything but Mexican!” (Zamorano 223)</p>
+
+        <div class="info-block fade-in" id="q2-info">
+          <h3>Historical Context</h3>
+          <p>This line captures the pressure on Mexican-American families to “pass” as European in order to gain social acceptance and avoid discrimination. In Los Angeles history, practices like racial passing and the erasure of Mexican neighborhoods (for example, the later removal of Chavez Ravine) show how identity could be a barrier to housing, work, and social mobility.</p>
+
+          <h3 class="subh">Literary Devices</h3>
+          <p><strong>Allusion:</strong> The line gestures toward broader erasures of Hispanic communities (e.g., Chavez Ravine).<br><br>
+             <strong>Dichotomy:</strong> The contrast between “Mexican” and “Spanish/French” underscores racialized hierarchies of acceptability.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= QUOTE 3 ========= -->
+<section id="quote3" style="background-image:url('media/b.jpg.webp')">
+  <div class="overlay">
+    <h2>Quote 3</h2>
+
+    <div class="quote-row">
+      <div class="quote-left">
+        <img src="media/d.png" alt="Infographic - AP data">
+      </div>
+
+      <div class="quote-right">
+        <p class="quote-text">“I don't want you to waste your time in those math classes you'd have to take. They're way beyond your abilitie.” (Zamorano 87)</p>
+
+        <div class="info-block fade-in" id="q3-info">
+          <h3>Historical Context</h3>
+          <p>This line represents educational gatekeeping that has historically limited opportunities for Latino students. Contemporary data (e.g., AP participation reports) show Hispanic students are still underrepresented in advanced coursework, a pattern that literature like Zamorano's exposes by dramatizing teacher discouragement and lowered expectations.</p>
+
+          <h3 class="subh">Literary Devices</h3>
+          <p><strong>Characterization:</strong> The teacher's discouraging tone reveals institutional bias rather than a true measure of ability.<br><br>
+             <strong>Symbolism:</strong> The “math classes” symbolize routes to social mobility and academic validation.<br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= WORKS CITED ========= -->
+<section id="works" style="background-image:url('/Users/sina/Desktop/web/works_bg.jpg')">
+  <div class="overlay">
+    <h2>Works Cited</h2>
+    <ul style="color:#fff;font-size:1rem;line-height:1.6">
+      <li>Zamorano, Désirée. <em>Dispossessed</em></li>
+      <li>College Board. "AP Program Results: Class of 2024." <a href="https://apcentral.collegeboard.org/" target="_blank" style="color:#fff;text-decoration:underline">apcentral.collegeboard.org</a></li>
+      <li>U.S. Department of Education, Civil Rights Data Collection (2023)</li>
+      <li>“No Mexis After Sunset.” Image generated with Gemini</li>
+    </ul>
+  </div>
+</section>
+
+<footer>&copy; 2025 Dispossessed Project</footer>
+
+<script>
+/* ===== Tab behaviour =====
+   - Only Home audio plays automatically (per your request)
+   - Info blocks fade in when tab becomes active
+*/
+
+function showTab(tabId){
+  // hide all sections
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  const active = document.getElementById(tabId);
+  if(!active) return;
+  active.classList.add('active');
+
+  // Manage Home audio: only play when home active
+  const homeAudio = document.getElementById('audio-home');
+  if(homeAudio){
+    if(tabId === 'home'){
+      const p = homeAudio.play();
+      if(p && p.catch) p.catch(()=>{/* autoplay blocked until interaction */});
+    } else {
+      try{ homeAudio.pause(); homeAudio.currentTime = 0; }catch(e){}
+    }
+  }
+
+  // restart fade animation for info blocks inside active section
+  const blocks = active.querySelectorAll('.info-block');
+  blocks.forEach(b=>{
+    b.classList.remove('fade-in');
+    void b.offsetWidth;
+    b.classList.add('fade-in');
+  });
+
+  // scroll top smoothly
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* Kickstart audio after first user interaction if autoplay blocked */
+(function kickoffAudioOnInteraction(){
+  let started = false;
+  function kick(){
+    if(started) return;
+    started = true;
+    const homeAudio = document.getElementById('audio-home');
+    if(homeAudio && document.getElementById('home').classList.contains('active')){
+      homeAudio.play().catch(()=>{/* ignore if blocked */});
+    }
+    window.removeEventListener('click', kick);
+    window.removeEventListener('keydown', kick);
+  }
+  window.addEventListener('click', kick);
+  window.addEventListener('keydown', kick);
+})();
+
+/* Ensure home audio attempts to start on load (may be blocked) */
+document.addEventListener('DOMContentLoaded', ()=> {
+  const homeAudio = document.getElementById('audio-home');
+  if(homeAudio){
+    homeAudio.play().catch(()=>{/* ignored */});
+  }
+});
+</script>
+
+</body>
+</html>
