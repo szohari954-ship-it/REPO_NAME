@@ -168,13 +168,43 @@
   .info-block h3{margin:0 0 8px;color:#c63a2d;font-size:1.05rem}
   .info-block .subh{color:#c63a2d;margin-top:14px;font-weight:700}
 
-  /* ---------- Responsive: stack image above text on narrow screens ---------- */
+  /* ---------- Photographs grid ---------- */
+  .photo-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:16px;
+    margin-top:16px;
+  }
+  .photo-card{
+    background:rgba(255,255,255,.1);
+    border:3px solid rgba(249,231,159,.55);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 10px 24px rgba(0,0,0,.35);
+  }
+  .photo-card img{
+    display:block;
+    width:100%;
+    height:220px;
+    object-fit:cover;
+  }
+  .photo-cap{
+    padding:10px 12px;
+    font-size:.95rem;
+    color:#fffbea;
+  }
+
+  /* ---------- Responsive ---------- */
   @media (max-width:920px){
     .quote-row{flex-direction:column}
     .quote-left,.quote-right{max-width:100%;flex:unset}
     header h1{font-size:1.9rem}
     .papel{width:34px;height:18px}
     nav{position:static}
+    .photo-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:520px){
+    .photo-grid{grid-template-columns:1fr}
   }
 
   /* ---------- Fade-in animation ---------- */
@@ -213,7 +243,9 @@
   <button onclick="showTab('quote1')">Quote 1</button>
   <button onclick="showTab('quote2')">Quote 2</button>
   <button onclick="showTab('quote3')">Quote 3</button>
-  <button onclick="showTab('works')">Works Cited</button>
+  <button onclick="showTab('photos')">Photographs</button>
+  <button onclick="showTab('artifacts')">Artifacts</button>
+  <button onclick="showTab('reflections')">Reflections</button>
 </nav>
 
 <!-- ========= HOME ========= -->
@@ -224,16 +256,13 @@
       <strong>Thesis:</strong> Through her use of Symbolism, Characterization, Allusion and Dichotomy in <em>Dispossessed</em>, Désirée Zamorano argues that the expectation of assimilation into the "White" American culture systematically erases immigrant identity by discouraging expression of heritage, language, and customs.
     </p>
 
-    <!-- Bigger home text block (made more prominent) -->
     <div class="info-block fade-in" style="border-left-color:#d44b35;">
       <h3>About this project</h3>
-      <p>This multimodal site pairs literary analysis with visual pieces to explore how Zamorano portrays assimilation, erasure, and resistance. Use the tabs above to explore three selected quotes, each paired with artwork and historical context.</p>
+      <p>This multimodal site combines literary analysis with visual storytelling through photos, artwork, and videography to explore themes of assimilation, erasure, and resistance in Zamorano’s work. Navigate the tabs above to experience three selected quotes alongside curated visuals and historical context.</p>
     </div>
 
-    <!-- Home audio (only this one plays automatically) -->
     <audio id="audio-home" loop>
       <source src="/Users/sina/Desktop/web/Valentin_Diaz_-_Me_xico_lindo_y_querido_(mp3.pm).mp3" type="audio/mpeg">
-      <!-- fallback text omitted -->
     </audio>
   </div>
 </section>
@@ -317,16 +346,66 @@
   </div>
 </section>
 
-<!-- ========= WORKS CITED ========= -->
-<section id="works" style="background-image:url('/Users/sina/Desktop/web/works_bg.jpg')">
+<!-- ========= PHOTOGRAPHS ========= -->
+<section id="photos" style="background-color: lightblue;">
   <div class="overlay">
-    <h2>Works Cited</h2>
-    <ul style="color:#fff;font-size:1rem;line-height:1.6">
-      <li>Zamorano, Désirée. <em>Dispossessed</em></li>
-      <li>College Board. "AP Program Results: Class of 2024." <a href="https://apcentral.collegeboard.org/" target="_blank" style="color:#fff;text-decoration:underline">apcentral.collegeboard.org</a></li>
-      <li>U.S. Department of Education, Civil Rights Data Collection (2023)</li>
-      <li>“No Mexis After Sunset.” Image generated with Gemini</li>
-    </ul>
+    <h2>Photographs</h2>
+
+    <div class="info-block fade-in" style="border-left-color:#e0b33f">
+      <h3>Description</h3>
+      <p>
+        All the photographs can connect to the social justice issue by showcasing equality, murals of culture being showcased amongst schools to show that they can do anything no matter where they come. It also relates because due to ice raid detainees there have been numerous deaths that are not talked about, but through día de Los muertos we can let them be seen and not forgotten as another testimony to stop separating families because of cultural background.
+      </p>
+    </div>
+
+    <div class="photo-grid">
+      <figure class="photo-card">
+        <img src="media/j.jpeg" alt="Photograph 1">
+        <figcaption class="photo-cap">Caption 1 (optional)</figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="media/k.jpeg" alt="Photograph 2">
+        <figcaption class="photo-cap">Caption 2 (optional)</figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="media/l.jpeg" alt="Photograph 3">
+        <figcaption class="photo-cap">Caption 3 (optional)</figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="media/m.jpeg" alt="Photograph 4">
+        <figcaption class="photo-cap">Caption 4 (optional)</figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="media/n.jpeg" alt="Photograph 5">
+        <figcaption class="photo-cap">Caption 5 (optional)</figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="media/o.heic" alt="Photograph 6">
+        <figcaption class="photo-cap">Caption 6 (optional)</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ========= ARTIFACTS (placeholder) ========= -->
+<section id="artifacts" style="background-image:url('media/artifacts_bg.jpg')">
+  <div class="overlay">
+    <h2>Artifacts</h2>
+    <div class="info-block fade-in">
+      <h3>Coming Soon</h3>
+      <p>Add posters, flyers, primary sources, or screenshots of news articles here. You can reuse the photo-card style if you want a grid layout.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========= REFLECTIONS (placeholder) ========= -->
+<section id="reflections" style="background-image:url('media/reflections_bg.jpg')">
+  <div class="overlay">
+    <h2>Reflections</h2>
+    <div class="info-block fade-in">
+      <h3>Notes</h3>
+      <p>Use this space for group reflections, takeaways, or calls to action. You can replace this text with student quotes or a summary paragraph.</p>
+    </div>
   </div>
 </section>
 
@@ -334,10 +413,9 @@
 
 <script>
 /* ===== Tab behaviour =====
-   - Only Home audio plays automatically (per your request)
+   - Only Home audio plays automatically
    - Info blocks fade in when tab becomes active
 */
-
 function showTab(tabId){
   // hide all sections
   document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
